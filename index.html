@@ -3,409 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener</title>
+    <title>Short Link - URL Shortener</title>
     <style>
-        * {
-            box-sizing: border-box;
+        body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f7f7f7;
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #0d1b2a;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            min-height: 100vh;
+            color: #1b263b;
         }
-        
+
         .container {
+            background-color: #f8f9fa;
+            border-radius: 24px;
+            padding: 40px 60px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
-            margin: 0 auto;
-        }
-        
-        header {
             text-align: center;
+        }
+
+        .logo-section {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+            font-weight: 600;
+            color: #1b263b;
+        }
+
+        .chain-icon {
+            font-size: 32px;
+            margin-right: 12px;
+            background: linear-gradient(135deg, #ff7a00, #ff9d3d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .redacted {
+            position: absolute;
+            top: 10px;
+            right: -40px;
+            background-color: #dc3545;
+            width: 140px;
+            height: 40px;
+            border-radius: 8px;
+            transform: rotate(15deg);
+        }
+
+        .redacted::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            width: 160px;
+            height: 20px;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0,0,0,0.3) 10px,
+                rgba(0,0,0,0.3) 20px
+            );
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            color: #1b263b;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #415a77;
+            margin-bottom: 50px;
+        }
+
+        .input-group {
             margin-bottom: 40px;
         }
-        
-        h1 {
-            font-size: 32px;
-            font-weight: 600;
-            color: #1a73e8;
-            margin-bottom: 8px;
-        }
-        
-        .tagline {
-            color: #666;
-            font-size: 16px;
-        }
-        
-        .input-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-        
+
         label {
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #444;
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1b263b;
+            text-align: left;
         }
-        
-        .url-input-wrapper {
-            position: relative;
-            display: flex;
-        }
-        
+
         input[type="text"] {
             width: 100%;
-            padding: 14px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        input[type="text"]:focus {
-            border-color: #1a73e8;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
-        }
-        
-        .url-input-wrapper::after {
-            content: "https://";
-            position: absolute;
-            right: 12px;
-            top: 38px;
-            font-size: 14px;
-            color: #666;
-            pointer-events: none;
-        }
-        
-        button {
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            align-self: flex-end;
-        }
-        
-        button:hover {
-            background-color: #1765cc;
-        }
-        
-        button:active {
-            background-color: #1456b2;
-        }
-        
-        .result-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            display: none;
-        }
-        
-        .result-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .result-header h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-left: 10px;
-            color: #333;
-        }
-        
-        .copy-btn {
-            background-color: #f1f1f1;
-            color: #333;
-            border: 1px solid #ddd;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-        }
-        
-        .copy-btn:hover {
-            background-color: #e1e1e1;
-        }
-        
-        .short-url {
+            padding: 18px 24px;
             font-size: 18px;
-            word-break: break-all;
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-family: monospace;
-            display: inline-block;
-            border: 1px dashed #ddd;
+            border: 2px solid #e0e1dd;
+            border-radius: 12px;
+            background-color: #ffffff;
+            color: #1b263b;
+            box-sizing: border-box;
         }
-        
-        .info-section {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-top: 30px;
+
+        input[type="text"]::placeholder {
+            color: #778da9;
         }
-        
-        .info-section h3 {
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
+        }
+
+        .button {
+            background-color: #0d6efd;
+            color: white;
             font-size: 20px;
             font-weight: 600;
-            margin-bottom: 15px;
-            color: #333;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+            transition: all 0.3s ease;
         }
-        
-        .info-section p {
-            color: #666;
-            margin-bottom: 10px;
+
+        .button:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(13, 110, 253, 0.4);
         }
-        
-        .error {
-            color: #ea4335;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
+
+        .button span {
+            margin-right: 12px;
         }
-        
-        .success-message {
-            color: #34a853;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-        
-        .icon {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-        }
-        
-        .copy-btn .icon {
-            margin-right: 6px;
-            font-size: 16px;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                margin: 0 15px;
-            }
-            
-            h1 {
-                font-size: 28px;
-            }
-            
-            .input-container, .result-container, .info-section {
-                padding: 20px;
-            }
-            
-            .url-input-wrapper {
-                flex-direction: column;
-            }
-            
-            .url-input-wrapper::after {
-                content: "";
-                display: none;
-            }
-            
-            button {
-                margin-top: 15px;
-                width: 100%;
-            }
-            
-            .copy-btn {
-                width: 100%;
-            }
+
+        .arrow {
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Shorten Any URL</h1>
-            <p class="tagline">Easier sharing for your links</p>
-        </header>
-        
-        <div class="input-container">
-            <div class="input-group">
-                <label for="url">Enter your long URL</label>
-                <div class="url-input-wrapper">
-                    <input type="text" id="url" placeholder="Paste your link here" autocomplete="off">
-                </div>
-                <p class="error" id="error-message"></p>
-                <p class="success-message" id="success-message">URL shortened successfully!</p>
+        <div class="logo-section">
+            <div class="logo">
+                <span class="chain-icon">🔗</span>
+                Short Link
             </div>
-            
-            <button id="shorten-btn">
-                Shorten
-            </button>
+            <div class="redacted"></div>
         </div>
-        
-        <div class="result-container" id="result-container">
-            <div class="result-header">
-                <div class="icon">✓</div>
-                <h2>Your shortened link</h2>
-            </div>
-            
-            <div class="short-url" id="short-url"></div>
-            
-            <button class="copy-btn" id="copy-btn">
-                <span class="icon">📋</span> Copy link
-            </button>
+
+        <h1>Shorten a long link</h1>
+        <p class="subtitle">No credit card required.</p>
+
+        <div class="input-group">
+            <label for="url">Paste your long link here</label>
+            <input type="text" id="url" placeholder="https://example.com/my-long-url" />
         </div>
-        
-        <div class="info-section">
-            <h3>How it works</h3>
-            <p>1. Paste your long URL into the input field above</p>
-            <p>2. Click the "Shorten" button</p>
-            <p>3. Copy your shortened link with one click</p>
-            <p>4. Share your shortened link anywhere you need</p>
-            
-            <p style="margin-top: 20px;">
-                <strong>Note:</strong> For best results, paste URLs that start with http:// or https://
-            </p>
-        </div>
+
+        <button class="button" onclick="alert('This is a static replica. In a real app, this would shorten the URL!')">
+            <span>Get your link for free</span>
+            <span class="arrow">→</span>
+        </button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlInput = document.getElementById('url');
-            const shortenBtn = document.getElementById('shorten-btn');
-            const resultContainer = document.getElementById('result-container');
-            const shortUrl = document.getElementById('short-url');
-            const copyBtn = document.getElementById('copy-btn');
-            const errorMessage = document.getElementById('error-message');
-            const successMessage = document.getElementById('success-message');
-            
-            // URL shortening function
-            function shortenUrl() {
-                const url = urlInput.value.trim();
-                
-                // Validate URL
-                if (!isValidUrl(url)) {
-                    showError('Please enter a valid URL starting with http:// or https://');
-                    return;
-                }
-                
-                // Hide any previous errors or success messages
-                hideError();
-                hideSuccess();
-                
-                // Simulate URL shortening process
-                shortenBtn.disabled = true;
-                shortenBtn.textContent = 'Shortening...';
-                
-                setTimeout(() => {
-                    // Create a shortened URL (simulated)
-                    const shortened = 'https://bit.ly/' + Math.random().toString(36).substring(2, 8);
-                    
-                    // Display the shortened URL
-                    shortUrl.textContent = shortened;
-                    resultContainer.style.display = 'block';
-                    
-                    // Show success message
-                    showSuccess();
-                    
-                    // Reset the button
-                    shortenBtn.disabled = false;
-                    shortenBtn.textContent = 'Shorten';
-                    
-                    // Scroll to the result
-                    resultContainer.scrollIntoView({ behavior: 'smooth' });
-                }, 1000);
+        // Optional: simple placeholder focus effect
+        const input = document.getElementById('url');
+        input.addEventListener('focus', () => {
+            if (input.value === '') {
+                input.placeholder = '';
             }
-            
-            // Validate URL format
-            function isValidUrl(url) {
-                try {
-                    const parsedUrl = new URL(url);
-                    return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
-                } catch (e) {
-                    return false;
-                }
+        });
+        input.addEventListener('blur', () => {
+            if (input.value === '') {
+                input.placeholder = 'https://example.com/my-long-url';
             }
-            
-            // Show error message
-            function showError(message) {
-                errorMessage.textContent = message;
-                errorMessage.style.display = 'block';
-            }
-            
-            // Hide error message
-            function hideError() {
-                errorMessage.textContent = '';
-            }
-            
-            // Show success message
-            function showSuccess() {
-                successMessage.style.display = 'block';
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 3000);
-            }
-            
-            // Hide success message
-            function hideSuccess() {
-                successMessage.style.display = 'none';
-            }
-            
-            // Copy shortened URL to clipboard
-            function copyToClipboard() {
-                const tempTextArea = document.createElement('textarea');
-                tempTextArea.value = shortUrl.textContent;
-                document.body.appendChild(tempTextArea);
-                tempTextArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempTextArea);
-                
-                // Visual feedback for user
-                const originalText = copyBtn.textContent;
-                copyBtn.textContent = 'Copied!';
-                setTimeout(() => {
-                    copyBtn.textContent = originalText;
-                }, 2000);
-            }
-            
-            // Event listeners
-            shortenBtn.addEventListener('click', shortenUrl);
-            copyBtn.addEventListener('click', copyToClipboard);
-            
-            // Allow Enter key to submit
-            urlInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    shortenUrl();
-                }
-            });
         });
     </script>
 </body>
