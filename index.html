@@ -1,127 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Sqidgeon Link Shortener</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #0f172a;
-    font-family: Arial, sans-serif;
-    color: #e5e7eb;
-  }
-
-  .container {
-    background: #020617;
-    padding: 24px;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-  }
-
-  h1 {
-    text-align: center;
-    margin-bottom: 16px;
-    font-size: 1.4rem;
-  }
-
-  input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-size: 0.95rem;
-    margin-bottom: 12px;
-  }
-
-  button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background: #1d4ed8;
-  }
-
-  .error {
-    color: #f87171;
-    font-size: 0.9rem;
-    display: none;
-    margin-top: 8px;
-  }
-
-  .result {
-    margin-top: 16px;
-    background: #020617;
-    padding: 10px;
-    border-radius: 8px;
-    word-break: break-all;
-    display: none;
-  }
-
-  a {
-    color: #60a5fa;
-    text-decoration: none;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #fff;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #6e8efb;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(to right, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .result h3 {
+            margin-bottom: 10px;
+            color: #6e8efb;
+        }
+        
+        .short-url {
+            font-size: 18px;
+            word-break: break-all;
+            background-color: #eef2ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: monospace;
+            display: inline-block;
+            border: 1px dashed #6e8efb;
+        }
+        
+        .copy-btn {
+            background-color: #6e8efb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #5a7df8;
+        }
+        
+        .info {
+            background-color: #f0f7ff;
+            border-left: 4px solid #6e8efb;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .info p {
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        .success-message {
+            color: #2ecc71;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .url-input-wrapper {
+            position: relative;
+        }
+        
+        .url-input-wrapper input {
+            padding-right: 100px;
+        }
+        
+        .url-input-wrapper::after {
+            content: "http://";
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            font-size: 16px;
+            color: #6e8efb;
+            pointer-events: none;
+        }
+    </style>
 </head>
-
 <body>
-<div class="container">
-  <h1>Sqidgeon Link Shortener</h1>
+    <header>
+        <h1>URL Shortener</h1>
+        <p>Make your long URLs shorter and more manageable</p>
+    </header>
+    
+    <div class="container">
+        <div class="input-group">
+            <label for="longUrl">Enter your long URL:</label>
+            <div class="url-input-wrapper">
+                <input type="text" id="longUrl" placeholder="https://youtube.com/your-video" autocomplete="off">
+            </div>
+            <div class="success-message" id="urlSuccess">URL successfully shortened!</div>
+            <div class="error" id="urlError">Please enter a valid URL starting with http:// or https://</div>
+        </div>
+        
+        <button id="shortenBtn">Shorten URL</button>
+        
+        <div class="result" id="resultContainer">
+            <h3>Your shortened URL:</h3>
+            <div class="short-url" id="shortenedUrl"></div>
+            <button class="copy-btn" id="copyBtn">Copy URL</button>
+        </div>
+        
+        <div class="info">
+            <p><strong>Example:</strong></p>
+            <p>Long URL: https://youtube.com/your-video</p>
+            <p>Short URL: http://ad.sqeid.uk/serve/sitelinks/?id=874336&url=https%3A%2F%2Fyoutube.com%2Fyour-video</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2="URL Shortener 2023" All rights reserved</p>
+    </div>
 
-  <input id="urlInput" type="text" placeholder="https://youtube.com">
-
-  <button onclick="shorten()">Generate Link</button>
-
-  <div id="error" class="error">
-    URL must start with http:// or https://
-  </div>
-
-  <div id="result" class="result"></div>
-</div>
-
-<script>
-  const BASE =
-    "http://ad.sqidgeon.uk/serve/sitelinks/?id=874336&url=";
-
-  function shorten() {
-    const input = document.getElementById("urlInput").value.trim();
-    const error = document.getElementById("error");
-    const result = document.getElementById("result");
-
-    error.style.display = "none";
-    result.style.display = "none";
-
-    // Only allow http:// or https://
-    if (!/^https?:\/\//i.test(input)) {
-      error.style.display = "block";
-      return;
-    }
-
-    // IMPORTANT: URL is appended EXACTLY as entered
-    const finalLink = BASE + input;
-
-    result.innerHTML = `
-      <strong>Final link:</strong><br>
-      <a href="${finalLink}" target="_blank">${finalLink}</a>
-    `;
-    result.style.display = "block";
-  }
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const longUrlInput = document.getElementById('longUrl');
+            const shortenBtn = document.getElementById('shortenBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const shortenedUrl = document.getElementById('shortenedUrl');
+            const copyBtn = document.getElementById('copyBtn');
+            const urlError = document.getElementById('urlError');
+            const urlSuccess = document.getElementById('urlSuccess');
+            
+            // Base URL format
+            const BASE_URL = 'http://ad.sqeid.uk/serve/sitelinks/?id=874336&url=';
+            
+            // Function to validate URL
+            function validateUrl(url) {
+                // Check if URL starts with http:// or https://
+                const httpRegex = /^https?:\/\/(?:www\.)?/;
+                return httpRegex.test(url);
+            }
+            
+            // Function to shorten URL
+            function shortenUrl() {
+                const longUrl = longUrlInput.value.trim();
+                
+                // Reset messages
+                urlError.style.display = 'none';
+                urlSuccess.style.display = 'none';
+                
+                // Validate URL
+                if (!validateUrl(longUrl)) {
+                    urlError.style.display = 'block';
+                    return;
+                }
+                
+                // Encode URL
+                const encodedUrl = encodeURIComponent(longUrl);
+                
+                // Create shortened URL
+                const shortened = BASE_URL + encodedUrl;
+                
+                // Display shortened URL
+                shortenedUrl.textContent = shortened;
+                resultContainer.style.display = 'block';
+                
+                // Show success message
+                urlSuccess.style.display = 'block';
+            }
+            
+            // Function to copy URL to clipboard
+            function copyToClipboard() {
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = shortenedUrl.textContent;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextArea);
+                
+                // Visual feedback for user
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            }
+            
+            // Event listeners
+            shortenBtn.addEventListener('click', shortenUrl);
+            copyBtn.addEventListener('click', copyToClipboard);
+            
+            // Allow Enter key to submit
+            longUrlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    shortenUrl();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
