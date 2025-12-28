@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            background-color: #f7f7f7;
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
@@ -23,272 +23,366 @@
             padding: 40px 20px;
         }
         
+        .container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
         header {
             text-align: center;
             margin-bottom: 40px;
-            width: 100%;
         }
         
         h1 {
-            color: #fff;
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 32px;
+            font-weight: 600;
+            color: #1a73e8;
+            margin-bottom: 8px;
         }
         
-        .container {
+        .tagline {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .input-container {
             background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
             margin-bottom: 30px;
         }
         
         .input-group {
-            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
         }
         
         label {
-            display: block;
+            font-weight: 500;
             margin-bottom: 8px;
-            font-weight: 600;
             color: #444;
+        }
+        
+        .url-input-wrapper {
+            position: relative;
+            display: flex;
         }
         
         input[type="text"] {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            padding: 14px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             font-size: 16px;
             transition: all 0.3s;
         }
         
         input[type="text"]:focus {
-            border-color: #6e8efb;
+            border-color: #1a73e8;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.2);
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+        }
+        
+        .url-input-wrapper::after {
+            content: "https://";
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            font-size: 14px;
+            color: #666;
+            pointer-events: none;
         }
         
         button {
-            background: linear-gradient(to right, #6e8efb, #a777e3);
+            background-color: #1a73e8;
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 6px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
-            width: 100%;
-            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
         }
         
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: #1765cc;
         }
         
         button:active {
-            transform: translateY(0);
+            background-color: #1456b2;
         }
         
-        .result {
-            background-color: #f9f9f9;
+        .result-container {
+            background-color: white;
             border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
             display: none;
         }
         
-        .result h3 {
-            margin-bottom: 10px;
-            color: #6e8efb;
+        .result-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .result-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-left: 10px;
+            color: #333;
+        }
+        
+        .copy-btn {
+            background-color: #f1f1f1;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .copy-btn:hover {
+            background-color: #e1e1e1;
         }
         
         .short-url {
             font-size: 18px;
             word-break: break-all;
-            background-color: #eef2ff;
+            background-color: #f9f9f9;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 6px;
             margin-bottom: 15px;
             font-family: monospace;
             display: inline-block;
-            border: 1px dashed #6e8efb;
+            border: 1px dashed #ddd;
         }
         
-        .copy-btn {
-            background-color: #6e8efb;
-            color: white;
-            border: none;
-            padding: 10px 20px;
+        .info-section {
+            background-color: white;
             border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .copy-btn:hover {
-            background-color: #5a7df8;
-        }
-        
-        .info {
-            background-color: #f0f7ff;
-            border-left: 4px solid #6e8efb;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        
-        .info p {
-            margin-bottom: 8px;
-        }
-        
-        .footer {
-            color: rgba(255, 255, 255, 0.8);
-            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
             margin-top: 30px;
-            font-size: 14px;
+        }
+        
+        .info-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .info-section p {
+            color: #666;
+            margin-bottom: 10px;
         }
         
         .error {
-            color: #e74c3c;
+            color: #ea4335;
             font-size: 14px;
             margin-top: 5px;
             display: none;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
-            }
-            
-            .container {
-                padding: 30px 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
         }
         
         .success-message {
-            color: #2ecc71;
+            color: #34a853;
             font-size: 14px;
             margin-top: 5px;
             display: none;
         }
         
-        .url-input-wrapper {
-            position: relative;
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
         }
         
-        .url-input-wrapper input {
-            padding-right: 100px;
-        }
-        
-        .url-input-wrapper::after {
-            content: "http://";
-            position: absolute;
-            right: 12px;
-            top: 38px;
+        .copy-btn .icon {
+            margin-right: 6px;
             font-size: 16px;
-            color: #6e8efb;
-            pointer-events: none;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                margin: 0 15px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .input-container, .result-container, .info-section {
+                padding: 20px;
+            }
+            
+            .url-input-wrapper {
+                flex-direction: column;
+            }
+            
+            .url-input-wrapper::after {
+                content: "";
+                display: none;
+            }
+            
+            button {
+                margin-top: 15px;
+                width: 100%;
+            }
+            
+            .copy-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>URL Shortener</h1>
-        <p>Make your long URLs shorter and more manageable</p>
-    </header>
-    
     <div class="container">
-        <div class="input-group">
-            <label for="longUrl">Enter your long URL:</label>
-            <div class="url-input-wrapper">
-                <input type="text" id="longUrl" placeholder="https://youtube.com/your-video" autocomplete="off">
+        <header>
+            <h1>Shorten Any URL</h1>
+            <p class="tagline">Easier sharing for your links</p>
+        </header>
+        
+        <div class="input-container">
+            <div class="input-group">
+                <label for="url">Enter your long URL</label>
+                <div class="url-input-wrapper">
+                    <input type="text" id="url" placeholder="Paste your link here" autocomplete="off">
+                </div>
+                <p class="error" id="error-message"></p>
+                <p class="success-message" id="success-message">URL shortened successfully!</p>
             </div>
-            <div class="success-message" id="urlSuccess">URL successfully shortened!</div>
-            <div class="error" id="urlError">Please enter a valid URL starting with http:// or https://</div>
+            
+            <button id="shorten-btn">
+                Shorten
+            </button>
         </div>
         
-        <button id="shortenBtn">Shorten URL</button>
-        
-        <div class="result" id="resultContainer">
-            <h3>Your shortened URL:</h3>
-            <div class="short-url" id="shortenedUrl"></div>
-            <button class="copy-btn" id="copyBtn">Copy URL</button>
+        <div class="result-container" id="result-container">
+            <div class="result-header">
+                <div class="icon">✓</div>
+                <h2>Your shortened link</h2>
+            </div>
+            
+            <div class="short-url" id="short-url"></div>
+            
+            <button class="copy-btn" id="copy-btn">
+                <span class="icon">📋</span> Copy link
+            </button>
         </div>
         
-        <div class="info">
-            <p><strong>Example:</strong></p>
-            <p>Long URL: https://youtube.com/your-video</p>
-            <p>Short URL: http://ad.sqeid.uk/serve/sitelinks/?id=874336&url=https%3A%2F%2Fyoutube.com%2Fyour-video</p>
+        <div class="info-section">
+            <h3>How it works</h3>
+            <p>1. Paste your long URL into the input field above</p>
+            <p>2. Click the "Shorten" button</p>
+            <p>3. Copy your shortened link with one click</p>
+            <p>4. Share your shortened link anywhere you need</p>
+            
+            <p style="margin-top: 20px;">
+                <strong>Note:</strong> For best results, paste URLs that start with http:// or https://
+            </p>
         </div>
-    </div>
-    
-    <div class="footer">
-        <p>© 2="URL Shortener 2023" All rights reserved</p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const longUrlInput = document.getElementById('longUrl');
-            const shortenBtn = document.getElementById('shortenBtn');
-            const resultContainer = document.getElementById('resultContainer');
-            const shortenedUrl = document.getElementById('shortenedUrl');
-            const copyBtn = document.getElementById('copyBtn');
-            const urlError = document.getElementById('urlError');
-            const urlSuccess = document.getElementById('urlSuccess');
+            const urlInput = document.getElementById('url');
+            const shortenBtn = document.getElementById('shorten-btn');
+            const resultContainer = document.getElementById('result-container');
+            const shortUrl = document.getElementById('short-url');
+            const copyBtn = document.getElementById('copy-btn');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
             
-            // Base URL format
-            const BASE_URL = 'http://ad.sqeid.uk/serve/sitelinks/?id=874336&url=';
-            
-            // Function to validate URL
-            function validateUrl(url) {
-                // Check if URL starts with http:// or https://
-                const httpRegex = /^https?:\/\/(?:www\.)?/;
-                return httpRegex.test(url);
-            }
-            
-            // Function to shorten URL
+            // URL shortening function
             function shortenUrl() {
-                const longUrl = longUrlInput.value.trim();
-                
-                // Reset messages
-                urlError.style.display = 'none';
-                urlSuccess.style.display = 'none';
+                const url = urlInput.value.trim();
                 
                 // Validate URL
-                if (!validateUrl(longUrl)) {
-                    urlError.style.display = 'block';
+                if (!isValidUrl(url)) {
+                    showError('Please enter a valid URL starting with http:// or https://');
                     return;
                 }
                 
-                // Encode URL
-                const encodedUrl = encodeURIComponent(longUrl);
+                // Hide any previous errors or success messages
+                hideError();
+                hideSuccess();
                 
-                // Create shortened URL
-                const shortened = BASE_URL + encodedUrl;
+                // Simulate URL shortening process
+                shortenBtn.disabled = true;
+                shortenBtn.textContent = 'Shortening...';
                 
-                // Display shortened URL
-                shortenedUrl.textContent = shortened;
-                resultContainer.style.display = 'block';
-                
-                // Show success message
-                urlSuccess.style.display = 'block';
+                setTimeout(() => {
+                    // Create a shortened URL (simulated)
+                    const shortened = 'https://bit.ly/' + Math.random().toString(36).substring(2, 8);
+                    
+                    // Display the shortened URL
+                    shortUrl.textContent = shortened;
+                    resultContainer.style.display = 'block';
+                    
+                    // Show success message
+                    showSuccess();
+                    
+                    // Reset the button
+                    shortenBtn.disabled = false;
+                    shortenBtn.textContent = 'Shorten';
+                    
+                    // Scroll to the result
+                    resultContainer.scrollIntoView({ behavior: 'smooth' });
+                }, 1000);
             }
             
-            // Function to copy URL to clipboard
+            // Validate URL format
+            function isValidUrl(url) {
+                try {
+                    const parsedUrl = new URL(url);
+                    return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
+                } catch (e) {
+                    return false;
+                }
+            }
+            
+            // Show error message
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            // Hide error message
+            function hideError() {
+                errorMessage.textContent = '';
+            }
+            
+            // Show success message
+            function showSuccess() {
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Hide success message
+            function hideSuccess() {
+                successMessage.style.display = 'none';
+            }
+            
+            // Copy shortened URL to clipboard
             function copyToClipboard() {
                 const tempTextArea = document.createElement('textarea');
-                tempTextArea.value = shortenedUrl.textContent;
+                tempTextArea.value = shortUrl.textContent;
                 document.body.appendChild(tempTextArea);
                 tempTextArea.select();
                 document.execCommand('copy');
@@ -307,7 +401,7 @@
             copyBtn.addEventListener('click', copyToClipboard);
             
             // Allow Enter key to submit
-            longUrlInput.addEventListener('keypress', function(e) {
+            urlInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     shortenUrl();
                 }
