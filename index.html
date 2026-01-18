@@ -513,14 +513,6 @@
     <script src="https://pl28509387.effectivegatecpm.com/53/db/26/53db268445c50dc2493595c606a86a4d.js"></script>
 </head>
 <body>
-
-<div id="page-guard">
-  <div class="page-guard-box">
-    <div class="loader"></div>
-    <h2 id="guard-title">Checking your browser…</h2>
-    <p id="guard-text">Please wait</p>
-  </div>
-</div>
     
     <div class="stars" id="stars"></div>
 
@@ -844,67 +836,44 @@
         });
     </script>
 
-    <div id="bottom-slot">
+<div id="bottom-slot">
   <script async data-cfasync="false"
     src="https://pl28509505.effectivegatecpm.com/f61aad515a717738d5203cd2761b88bc/invoke.js">
   </script>
 </div>
 
-<style>
+    <style>
+/* Bottom Ad Container */
 #bottom-slot {
-  position: fixed;
+  position: fixed;       /* Stick to bottom of viewport */
   bottom: 0;
   left: 0;
-  width: 100%;
-  text-align: center;
-  z-index: 9998;
-  padding: 8px 0;
-  background: #000;
+  width: 100%;           /* Full width */
+  text-align: center;    /* Center the ad */
+  z-index: 9999;         /* Above page content */
+  padding: 8px 0;        /* Optional spacing */
+  background: #000;      /* Optional background */
 }
 
+/* Ad script container */
 #bottom-slot > div {
   display: inline-block;
-  width: 728px;
-  max-width: 100%;
+  width: 728px;           /* Default desktop width */
+  max-width: 100%;        /* Responsive */
+  height: auto;
 }
+
+/* Mobile adjustments */
 @media (max-width: 768px) {
-  #bottom-slot > div { width: 320px; }
+  #bottom-slot {
+    padding: 4px 0;       /* Reduce padding on mobile */
+  }
+  #bottom-slot > div {
+    width: 320px;         /* Shrink ad width on mobile */
+    height: auto;
+  }
 }
 </style>
-
-
-<script>
-document.documentElement.classList.add("locked");
-
-// Run detection immediately
-(function(){
-  // bait element (safe name)
-  const bait = document.createElement("div");
-  bait.className = "sponsor-checker-unit";
-  bait.style.cssText = "height:1px;position:absolute;left:-9999px;";
-  document.body.appendChild(bait);
-
-  const blocked = bait.offsetHeight === 0;
-  bait.remove();
-
-  const overlay = document.getElementById("page-guard");
-  const title = document.getElementById("guard-title");
-  const text = document.getElementById("guard-text");
-
-  if(blocked){
-    // Ad blocker detected — show warning
-    title.textContent = "Please disable your ad blocker";
-    text.innerHTML = "This site cannot be used while an ad blocker is enabled.<br>Disable it and refresh the page.";
-  } else {
-    // No ad blocker — fade out overlay after short delay
-    setTimeout(()=>{
-      overlay.classList.add("fade-out");
-      document.documentElement.classList.remove("locked");
-      setTimeout(()=>overlay.remove(), 600);
-    }, 800); // fade out after 0.8s
-  }
-})();
-</script>
 
 </body>
 </html>
