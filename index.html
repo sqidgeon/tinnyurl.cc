@@ -23,6 +23,18 @@
             padding-top: 20px;
         }
 
+  #adblock-warning {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    z-index: 10000;
+  }
+        
         body.dark-mode {
             background-color: #000000;
         }
@@ -843,6 +855,16 @@
 <div id="adblock-warning" style="display:none;">
   <p>Please disable your ad blocker to support this site ❤️</p>
 </div>
+
+    <script>
+  setTimeout(function () {
+    const ad = document.getElementById("container-f61aad515a717738d5203cd2761b88bc");
+
+    if (!ad || ad.offsetHeight === 0 || ad.innerHTML.trim() === "") {
+      document.getElementById("adblock-warning").style.display = "block";
+    }
+  }, 2000);
+</script>
 
 </body>
 </html>
