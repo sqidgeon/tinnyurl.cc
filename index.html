@@ -869,25 +869,33 @@
             });
         });
     </script>
-    <script async data-cfasync="false"
+<script async data-cfasync="false"
   src="https://pl28509505.effectivegatecpm.com/f61aad515a717738d5203cd2761b88bc/invoke.js">
 </script>
 
 <div id="container-f61aad515a717738d5203cd2761b88bc"></div>
 
-<div id="adblock-warning" style="display:none;">
-  <p>Please disable your ad blocker to support this site ❤️</p>
-</div>
 
-    <script>
-  setTimeout(function () {
-    const ad = document.getElementById("container-f61aad515a717738d5203cd2761b88bc");
+<script>
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      const ad = document.getElementById("container-f61aad515a717738d5203cd2761b88bc");
+      const overlay = document.getElementById("adblock-overlay");
+      const title = document.getElementById("adblock-title");
+      const text = document.getElementById("adblock-text");
 
-    if (!ad || ad.offsetHeight === 0 || ad.innerHTML.trim() === "") {
-      document.getElementById("adblock-warning").style.display = "block";
-    }
-  }, 2000);
+      if (!ad || ad.offsetHeight === 0 || ad.innerHTML.trim() === "") {
+        // Ad blocker detected
+        title.innerText = "Please disable your ad blocker";
+        text.innerHTML = "This site cannot be used while an ad blocker is enabled.<br>Disable it and refresh the page.";
+      } else {
+        // Ads loaded — allow site
+        overlay.style.display = "none";
+      }
+    }, 2500); // loading delay
+  });
 </script>
+
 
 </body>
 </html>
